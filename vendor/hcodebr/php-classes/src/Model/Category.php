@@ -137,7 +137,7 @@ class Category extends Model{
 	public function addProduct(Product $product){
 
 		$sql = new Sql();
-		$sql->query("INSERT INTO tb_productscategories (idcategory, idproduct)VALUES(:idcategory, :idproduct)", [
+		$sql->query("INSERT INTO tb_productscategories(idcategory, idproduct) VALUES (:idcategory, :idproduct)", [
 			":idcategory"=>$this->getidcategory(),
 			":idproduct"=>$product->getidproduct()
 		]);
