@@ -9,7 +9,7 @@ use \Hcode\Mailer;
 class User extends Model{
 
 	const SESSION = "User";
-	const SECRET = "";
+	const SECRET = "#Php7_@@_Secret#";
 
 	public static function login($login, $password){
 
