@@ -15,9 +15,8 @@ class Cart extends Model{
 	public static function getFromSession(){
 
 		$cart = new Cart();
-		
-		if(isset($_SESSION[Cart::SESSION]) && $_SESSION[Cart::SESSION]['idcart'] > 0){
 
+		if(isset($_SESSION[Cart::SESSION]) && $_SESSION[Cart::SESSION]['idcart'] > 0){
 			$cart->get((int)$_SESSION[Cart::SESSION]['idcart']);
 		
 		}else{
@@ -25,17 +24,15 @@ class Cart extends Model{
 			$cart->getFromSessionID();
 
 			if(!(int)$cart->getidcard() > 0){
-
 				$data = array(
-     				"dessessionid"=>session_id()
+					"dessessionid"=>session_id()
 				);
 
 				$user = User::getFromSession();
 
 				if(User::checkLogin(false)){
-
+					$user = User::getFromSession();
 					$data['iduser'] = $user->getiduser();
-
 				}
 
 				$cart->setData($data);
@@ -61,7 +58,6 @@ class Cart extends Model{
 		]);
 
 		if(count($results) > 0){
-
 			$this->setData($results[0]);
 
 		}
@@ -75,30 +71,25 @@ class Cart extends Model{
 			":idcart"=>$idcart
 		]);
 
-		var_dump($results);
-
 		if(count($results) > 0){
-
 			$this->setData($results[0]);
-			
 		}
 	}
 
 	public function save(){
 
 		$sql = new Sql();
-		$results = $sql->select("CALL sp_cart_save(:idcart, :dessessionid, :iduser, :deszipcode, :vlfreight, :nrdays)", [
+
+		$results = $sql->select("CALL sp_carts_save(:idcart, :dessessionid, :iduser, :deszipcode, :vlfreight, :nrdays)", array(
 			":idcart"=>$this->getidcart(),
 			":dessessionid"=>$this->getdessessionid(),
 			":iduser"=>$this->getiduser(),
 			":deszipcode"=>$this->getdeszipcode(),
 			":vlfreight"=>$this->getvlfreight(),
-			":nrdays"=>$this->getnrdays(),
-		]);
-
+			":nrdays"=>$this->getnrdays()
+		));
 		$this->setData($results[0]);
 	}
-
 }
 
 ?>
