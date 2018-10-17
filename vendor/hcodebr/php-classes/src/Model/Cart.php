@@ -94,7 +94,7 @@ class Cart extends Model{
 	public function addProduct(Product $product){
 
 		$sql = new Sql();
-		$sql->query("INSERT INTO tb_cartsproducts (idcart, idproduct) VALUES (:idcart, :idproduct, )", array(
+		$sql->query("INSERT INTO tb_cartsproducts (idcart, idproduct) VALUES (:idcart, :idproduct)", array(
 			":idcart"=>$this->getidcart(),
 			":idproduct"=>$product->getidproduct()
 		));
@@ -106,13 +106,13 @@ class Cart extends Model{
 
 		if($all){
 
-			$slq->query("UPDATE tb_cartsproducts SET dtremote = NOW() WHERE idcart =  :idcart AND idproduct = :idproduct AND dtremote IS NULL", array(
+			$slq->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart =  :idcart AND idproduct = :idproduct AND dtremoved IS NULL", array(
 				":idcart"=>$this->getidcart(),
 				":idproduct"=>$product->getidproduct()
 			));
 		}else{
 
-			$slq->query("UPDATE tb_cartsproducts SET dtremote = NOW() WHERE idcart =  :idcart AND idproduct = :idproduct AND dtremote IS NULL LIMIT 1", array(
+			$slq->query("UPDATE tb_cartsproducts SET dtremoved = NOW() WHERE idcart =  :idcart AND idproduct = :idproduct AND dtremoved IS NULL LIMIT 1", array(
 				":idcart"=>$this->getidcart(),
 				":idproduct"=>$product->getidproduct()
 			));
