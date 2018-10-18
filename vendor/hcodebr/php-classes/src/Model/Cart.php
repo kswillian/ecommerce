@@ -134,6 +134,10 @@ class Cart extends Model{
 
 		return Product::checkList($rows);
 	}
+
+	public function getProductsTotal(){
+		
+	}
 }
 
 ?>
