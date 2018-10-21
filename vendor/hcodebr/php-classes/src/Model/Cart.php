@@ -224,7 +224,7 @@ class Cart extends Model{
 
 	}
 
-	public static function serMsgError($msg){
+	public static function setMsgError($msg){
 
 		$_SESSION[Cart::SESSION_ERROR] = $msg;
 	}
