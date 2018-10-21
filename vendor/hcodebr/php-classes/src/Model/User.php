@@ -121,7 +121,7 @@ class User extends Model{
 		$results = $sql->select("CALL sp_users_save(:desperson, :deslogin, :despassword, :desemail, :nrphone, :inadmin)",array(
 			":desperson"=>utf8_decode($this->getdesperson()),
 			":deslogin"=>$this->getdeslogin(),
-			":despassword"=>$this->getdespassword(),
+			":despassword"=>User::getPasswordHash($this->getdespassword()),
 			":desemail"=>$this->getdesemail(),
 			":nrphone"=>$this->getnrphone(),
 			":inadmin"=>$this->getinadmin()
@@ -287,10 +287,24 @@ class User extends Model{
     
     }
 
+    public static function setErrorRegister($msg){
+
+    	$_SESSION[User::ERROR_REGISTER] = $msg;
+    
+    }
+
     public static function getError(){
 
     	$msg = (isset($_SESSION[User::ERROR]) && $_SESSION[User::ERROR]) ? $_SESSION[User::ERROR] : '';
     	User::clearError();
+    	return $msg;
+
+    }
+
+    public static function getErrorRegister(){
+
+    	$msg = (isset($_SESSION[User::ERROR_REGISTER]) && $_SESSION[User::ERROR_REGISTER]) ? $_SESSION[User::ERROR_REGISTER] : '';
+    	User::clearErrorRegister();
     	return $msg;
 
     }
@@ -301,18 +315,28 @@ class User extends Model{
 
     }
 
-    public static function setErrorRegister($msg){
+    public static function clearErrorRegister(){
 
-    	$_SESSION[User::ERROR_REGISTER] = $msg;
+    	$_SESSION[User::ERROR_REGISTER] = NULL;
 
     }
 
-    /*public static function getPasswordHash($password){
+    public static function checkLoginExists($login){
+
+    	$sql = new Sql();
+    	$results = $sql->select("SELECT * FROM tb_users WHERE deslogin = :deslogin", [
+    		":deslogin"=>$login
+    	]);
+
+    	return (count($results) > 0);
+    }
+
+    public static function getPasswordHash($password){
 
     	return password_hash($password, PASSWORD_DEFAULT, [
     		'cost'=>12
     	]);
-    }*/
+    }
 }
 
 ?>
