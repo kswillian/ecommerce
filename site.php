@@ -164,7 +164,7 @@ $app->post("/checkout", function(){
 		exit;
 	}
 
-	if(!isset($_POST['desaddress']) || $_POST['desaddress'] === ''){
+	if(!isset($_POST['desaddress']) || $_POST['desaddress'] === ' '){
 
 		Address::setMsgError("Informe o endereço.");
 		header("Location: /checkout");
