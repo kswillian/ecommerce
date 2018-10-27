@@ -16,7 +16,7 @@ require_once("admin-user.php");
 require_once("admin-login.php");
 require_once("admin-categories.php");
 require_once("admin-products.php");
-
+require_once("admin-order.php");
 
 $app->run();
 
