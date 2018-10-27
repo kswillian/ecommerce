@@ -195,7 +195,6 @@ class Category extends Model{
 		];
 	}
 
-
 }
 
 ?>
