@@ -14,7 +14,7 @@ $app->get("/admin/orders/:idorder/status", function($idorder){
 	$page = new PageAdmin();
 	$page->setTpl("order-status", [
 		"order"=>$order->getValues(),
-		"status"=>Orderstatus::listAll(),
+		"status"=>OrderStatus::listAll(),
 		"msgSuccess"=>Order::getSuccess(),
 		"msgError"=>Order::getError()
 	]);
